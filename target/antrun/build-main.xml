@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo message="Installing package to c:\tp1\1.0"/>
+  <mkdir dir="c:\tp1\1.0"/>
+  <copy todir="c:\tp1\1.0" file="E:\Documents\ESIAG\cours\ingénierie logiciel - industrialisation des développements\tp1\target\tp1-1.0.jar"/>
+</target>
+</project>
