@@ -1,0 +1,1001 @@
+<html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="shortcut icon" href="https://cdndigitalworkplacefr.blob.core.windows.net/cdnproddigitalworkplace/Declics/_catalogs/masterpage/Ag2rlamondiale/Assets/img/ag2r.ico?rev=23" type="image/vnd.microsoft.icon" id="favicon">
+		<title> Portail des applications Extranet Retraite Supplementaire par environnement </title>
+
+		<SCRIPT langage="javascript">
+			function go(url){
+				window.open(url);
+			}
+
+			// framework : APPLI, CONSOLE
+			// env : DEV_TU, DEV_CA, HOMO, VALID, PROD
+			function getServeur(env, framework) {
+				var serveur = '';
+				if (env == 'DEV_TU' && framework == 'APPLI') {
+					serveur = 'esigate-dev';
+				} else 	if (env == 'DEV_CA' && framework == 'APPLI') {
+					serveur = 'esigate-dev';
+				} else 	if (env == 'HOMO' && framework == 'APPLI') {
+					serveur = 'espace-client-rec';
+				} else 	if (env == 'VALID' && framework == 'APPLI') {
+					serveur = 'espace-client.ppalm.fr';
+				} else if (env == 'PROD' && framework == 'APPLI') {
+					serveur = 'espace-client.ag2rlamondiale.fr';
+				} else if (env == 'DEV_TU' && framework == 'CONSOLE') {
+					serveur = 'wasd85j7';
+				} else 	if (env == 'DEV_CA' && framework == 'CONSOLE') {
+					serveur = 'wasca85';
+				} else 	if (env == 'HOMO' && framework == 'CONSOLE') {
+					serveur = 'wasck85';
+				} else 	if (env == 'VALID' && framework == 'CONSOLE') {
+					serveur = 'wasrt85';
+				} else 	if (env == 'VALID' && framework == 'CHECK') {
+					serveur = 'wasrtxnt85';
+				} else if (env == 'PROD' && framework == 'CONSOLE') {
+					serveur = 'console-ere';
+				} else if (env == 'PROD' && framework == 'CHECK') {
+					serveur = 'inscriptions.ag2rlamondiale.fr';
+				}
+				else {
+					alert('Erreur sur le serveur');
+				}
+				return 'http://'+serveur;
+			}
+
+			function tabOpen(env, framework, url, framename){
+				window.open(getServeur(env, framework) + url, framename);
+			}
+
+			function setHref(anchorElement, env, framework, url){
+				var link = getServeur(env, framework) + url;
+				anchorElement.href=link;
+			}
+
+			function createCookie(name,value,days) {
+				if (days) {
+					var date = new Date();
+					date.setTime(date.getTime()+(days*24*60*60*1000));
+					var expires = "; expires="+date.toGMTString();
+				} else {
+					var expires = '';
+				}
+				document.cookie = name+"="+value+expires+"; path=/";
+			}
+
+			function readCookie(name) {
+				var nameEQ = name + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0;i < ca.length;i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1,c.length);
+					if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+				}
+				return null;
+			}
+
+			function eraseCookie(name) {
+				createCookie(name,'',-1);
+			}
+
+			function chargement() {
+				var tabVal = ['grpParticulier', 'grpEntreprise', 'grpConsole', 'grpAutre', 'grpDev' ];
+				/*var tabGrp = ['grpFicheClientWeb', 'grpOPCOMM', 'grpEspaceClient', 'grpSicWeb', 'grpEGesper', 'grpPFS', 'grpTechnique', 'grpPTV', 'grpOTERM', 'grpCLAUBNF', 'grpWorkFlow'
+							  'grpPTV', 'grpBOT', 'grpTstGAC', 'grpAutres'
+							 ];
+							 */
+				var tabGrp = ['grpPTV', 'grpBOT', 'grpTstGAC', 'grpAutres', 'grpTech' ];
+
+	/*
+				//----- Purge des cookies -----
+				for (var i = 0; i < tabVal.length; i++) {
+					eraseCookie(tabVal[i]);
+				}
+				for (var i = 0; i < tabGrp.length; i++) {
+					eraseCookie(tabGrp[i]);
+				}
+				//-----------------------------
+	*/
+				for (var i = 0; i < tabVal.length; i++) {
+					var val = readCookie(tabVal[i]);
+					if (val != null) {
+						document.getElementById(tabVal[i]).value = val;
+					}
+				}
+
+				for (var i = 0; i < tabGrp.length; i++) {
+					var val = readCookie(tabGrp[i]);
+					if (val != null) {
+						document.getElementById(tabGrp[i]).style.display = val;
+					}
+				}
+			}
+
+			function open_close_groupe(idGroupe) {
+				var newValue = "none";
+				if (document.getElementById(idGroupe).style.display == "none"){
+					newValue = "table-row-group";
+				}
+				document.getElementById(idGroupe).style.display = newValue;
+				createCookie(idGroupe, newValue, 10);
+			}
+
+		</SCRIPT>
+
+		<style type="text/css">
+
+			body{
+				font-family: Arial;
+				font-size: 10px;
+			}
+			TABLE {
+				border-style: none;
+			}
+
+			TD {
+				padding: 2px;
+			}
+
+			.tableaufond {
+				border: #003362;
+				border-style: solid;
+				border-top-width: 2px;
+				border-right-width: 2px;
+				border-bottom-width: 2px;
+				border-left-width: 2px;
+				background-color: #EAEFF4;
+				border-collapse: collapse;
+			}
+
+			.cellulefond {
+				border-style: none;
+				border-top-width: 2px;
+				border-right-width: 2px;
+				border-bottom-width: 2px;
+				border-left-width: 2px;
+				background-color: #EAEFF4;
+				padding: 10px;
+			}
+
+			.tableauAppli {
+				border: #003362;
+				border-style: solid;
+				border-top-width: 1px;
+				border-right-width: 1px;
+				border-bottom-width: 1px;
+				border-left-width: 1px;
+				border-collapse: collapse ;
+				background-color: #EAEFF4;
+			}
+
+			.celluleAppli {
+				border-style: solid;
+				border-top-width: 1px;
+				border-right-width: 1px;
+				border-bottom-width: 1px;
+				border-left-width: 1px;
+				padding: 5px;
+			}
+
+			.tableaulien {
+				border-style: none;
+			}
+
+			.cellulelien {
+				padding: 0px;
+			}
+
+			.rubrique {
+				font-family: Arial;
+				font-size: 16px;
+				color: black;
+				font-weight: bold;
+				text-decoration: none;
+			}
+
+			.grouperubrique td {
+				font-family: Arial;
+				font-size: 14px;
+				color: #FFFFFF;
+				font-weight: none;
+				text-decoration: none;
+				background-color : #8080EA;
+				border:1px solid #000000;
+				border-bottom-bottom: 1px;
+				border-bottom-top: 1px;
+			}
+
+			.sousrubrique {
+				font-family: Arial;
+				font-size: 14px;
+				color: #00006A;
+				font-weight: none;
+				text-decoration: none;
+			}
+
+			.dev {
+				font-family: Arial;
+				font-size: 12px;
+				color: 6666FF;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.debug {
+				font-family: Arial;
+				font-size: 12px;
+				color: 0000FF;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.validetu {
+				font-family: Arial;
+				font-size: 12px;
+				color: "00AAAA";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.homass {
+				font-family: Arial;
+				font-size: 12px;
+				color: "00AA00";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.homval {
+				font-family: Arial;
+				font-size: 12px;
+				color: orange;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.homdeb {
+				font-family: Arial;
+				font-size: 12px;
+				color: "00AAAA";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.cota {
+				font-family: Arial;
+				font-size: 12px;
+				color: "7700AA";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.hompro {
+				font-family: Arial;
+				font-size: 12px;
+				color: "#DC00A2";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.integ {
+				font-family: Arial;
+				font-size: 12px;
+				color: orange;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.valid {
+				font-family: Arial;
+				font-size: 12px;
+				color: CC3333;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.prod {
+				font-family: Arial;
+				font-size: 12px;
+				color: red;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.lien {
+				font-family: Arial;
+				font-size: 12px;
+				color: #00006A;
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.cellulelien .texte {
+				font-family: Arial;
+				font-size: 12px;
+				color: #00006A;
+				font-weight: bold;
+				text-decoration: none;
+			}
+
+			.validcds {
+				font-family: Arial;
+				font-size: 12px;
+				color: "#663E10";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+
+			.assem {
+				font-family: Arial;
+				font-size: 12px;
+				color: "#002F2F";
+				font-weight: bold;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+
+	<body onLoad='javascript:chargement()' >
+
+		<table width=100% class="tableaufond">
+			<tr>
+				<td width=70% valign=top class="cellulefond">
+					<table width=100%>
+						<tr>
+							<td>
+								<span class="rubrique">
+									Applications Extranet Retraite Supplémentaire
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="cellulelien">
+								<table width=90% align="center" class="tableauAppli">
+									<tr>
+										<th scope=col>APPLICATION</th>
+										<th scope=col>DEV_TU</th>
+										<th scope=col>DEV_CA</th>
+										<th scope=col>HOMOLOGATION/RECETTE</th>
+										<th scope=col>PRé-PROD</th>
+										<th scope=col>PROD</th>
+									</tr>
+									<tr class="grouperubrique" onClick="open_close_groupe('grpParticulier')">
+										<td colspan="6">ESPACE CLIENT PARTICULIER</td>
+									</tr>
+									<tbody id = 'grpParticulier'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Client Particulier (Parcours client)</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'APPLI', '/accueil/');" target="_blank" class="dev">DEV_TU PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'APPLI', '/accueil/');" target="_blank" class="dev">DEV_CA PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'APPLI', '/accueil/');" target="_blank" class="homval">RECETTE PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'APPLI', '/accueil/');" target="_blank" class="valid">VALID PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'APPLI', '/accueil/');" target="_blank" class="prod">PROD PC</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Retraite Supplémentaire Particulier</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'APPLI', '/aqeadev/');" target="_blank" class="dev">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'APPLI', '/aqea/');" target="_blank" class="dev">DEV_CA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'APPLI', '/aqea/');" target="_blank" class="homval">RECETTE</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'APPLI', '/aqea/');" target="_blank" class="valid">VALID AQEA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'APPLI', '/aqea/');" target="_blank" class="prod">PROD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Check Extranet Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'CONSOLE', '/aqeadev/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_TU check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'CONSOLE', '/aqea/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_CA check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'CONSOLE', '/aqea/metis/admin/supervision-light.jsp');" target="_blank" class="homval">RECETTE check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'CHECK', '/aqea/metis/admin/supervision-light.jsp');" target="_blank" class="valid">VALID check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'CHECK', '/aqea/metis/admin/supervision-light.jsp');" target="_blank" class="prod">PROD check</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Logs Extranet Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci067/AppSrv01/hfz101dev-aqe/logs/?C=M;O=D " class="dev" target="_blank">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci065/AppSrv01/caz101dev-aqe/logs" class="dev" target="_blank">DEV_CA Log</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://lpcci080.unix.lan/log-was-lrcci105/AppSrv01/ckz101rec-aqe/logs" class="homval" target="_blank">HOMO Log</a>
+												<a href="http://portail-was/jawass/index.php/logs-traces/websphere-8-5-logs-traces" class="homval" target="_blank">RECETTE TBD</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://lpcci080.unix.lan/log/lqc1d135/WebSphere/AppSrv01/RTXNTdyn85aqecl1_lqc1d135Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log1</a>
+												<a href="http://lpcci080.unix.lan/log/lqc2d136/WebSphere/AppSrv01/RTXNTdyn85aqecl1_lqc2d136Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log 2</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://lpcci080.unix.lan/log/lpc1d222/WebSphere/AppSrv01/PXNTdyn85aqecl1_lpc1d222Node01/logs/?C=M;O=D" class="prod" target="_blank">PROD Log1</a>
+												<a href="http://lpcci080.unix.lan/log/lpc2d223/WebSphere/AppSrv01/PXNTdyn85aqecl1_lpc2d223Node01/logs/?C=M;O=D"  class="prod" target="_blank">PROD Log 2</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Administration / Supervision signature électronique</span></td>
+											<td width=11% align=center class="celluleAppli"colspan="2">
+												<!-- DEV_TU -->
+												<a href="https://sign.test.universign.eu/fr/signin/" class="dev" target="_blank">DEV ( ag2r-cpt-admin-ere-assbl@ag2rlamondiale.fr / 20AG2R17)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="https://sign.test.universign.eu/fr/signin/" class="homval" target="_blank">RECETTE ( ag2r-cpt-admin-ere-integ@ag2rlamondiale.fr / 20AG2R17)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="https://sign.test.universign.eu/fr/signin/"  class="valid" target="_blank">VALID ( ag2r-cpt-admin-ere-valid@ag2rlamondiale.fr / 20AG2R17)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="https://app.universign.com/fr/signin/" class="prod" target="_blank">PROD (ag2rlm_admin_ere_part@ag2rlamondiale.fr / mAgetKdM4j92)</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Reset signature électronique</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="https://ag2r:03.qw9d8i;2=kaR@sign.test.universign.eu:8181/reset/" class="dev" target="_blank">Reset SigElec</a>
+											</td>
+										</tr>
+									</tbody>
+
+									<tr class="grouperubrique" onClick="open_close_groupe('grpEcrs')">
+										<td colspan="6">ESPACE CLIENT PARTICULIER ANGULAR</td>
+									</tr>
+									<tbody id='grpEcrs'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Client Front</span></td>
+											<td width=11% colspan="2" align=center class="celluleAppli">
+												<!-- DEV -->
+												<a href="http://esigate-dev/retraite-supplementaire/" target="_blank" class="dev">DEV Front</a>
+												<br>
+												<a href="http://a1573-rsf.kdev/rsf/" target="_blank" class="dev">DEV Front KUBE direct (sans ESIGATE)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://espace-client-rec/retraite-supplementaire/" target="_blank" class="homval">RECETTE Front</a>
+												<br>
+												<a href="http://a1573-rsf.krec/rsf/" target="_blank" class="dev">RECETTE Front KUBE direct (sans ESIGATE)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="https://espace-client.ppalm.fr/retraite-supplementaire/" target="_blank" class="valid">QUALIF Front</a>												
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="https://espace-client.ag2rlamondiale.fr/retraite-supplementaire/" target="_blank" class="prod">PROD Front</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Client Back</span></td>
+											<td width=11% colspan="2" align=center class="celluleAppli">
+												<!-- DEV -->
+												<a href="http://a1573-rsf.kdev/rsb/" target="_blank" class="dev">DEV Back</a><br>
+												<a href="http://a1573-rsf.kdev/rsb/api/public/public_example" target="_blank" class="dev">DEV Back - URL : api/public/public_example</a><br>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://a1573-rsf.krec/rsb/" target="_blank" class="homval">RECETTE Back</a><br>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Logs Espace Client back</span></td>
+											<td width=11% colspan="2" align=center class="celluleAppli">
+												<!-- DEV -->
+												<a href="http://kubedashboardreclan/#/overview/namespace/a1573-dev/workloads/pods" target="_blank" class="dev">DEV Log</a><br>
+												<a href="https://kibana6p/s/containers/goto/580b22460a2a3224ac9a9b4cd586dfea" target="_blank" class="dev">Dev Log Kibana</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://kubedashboardreclan/#/overview/namespace/a1573-rec" target="_blank" class="homval">RECETTE Log</a><br>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://kubedashboardquadmz/#/overview/namespace/a1573-qua" target="_blank" class="valid">QUALIF Log</a><br>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="https://ucpdmz.prd/manage/resources/containers" target="_blank" class="prod">PROD Log</a><br>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Kibana</span></td>
+											<td width=11% colspan="5" align=center class="celluleAppli">
+												<a href="https://kibana6p/s/containers/app/kibana" target="_blank" class="dev">Console Kibana</a><br>
+											</td>
+										</tr><tr>
+											<td class="celluleAppli"><span class="sousrubrique">Console Kubernetes</span></td>
+											<td width=11% colspan="5" align=center class="celluleAppli">
+												<a href="http://kubedashboard/#/overview/" target="_blank" class="dev">Console Kubernetes</a><br>
+											</td>
+										</tr>
+									</tbody>
+
+
+									<tr class="grouperubrique" onClick="open_close_groupe('grpEntreprise')">
+										<td colspan="6">ESPACE CLIENT ENTREPRISE</td>
+									</tr>
+									<tbody id = 'grpEntreprise'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Client (Parcours client)</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'APPLI', '/accueil/');" target="_blank" class="dev">DEV_TU PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'APPLI', '/accueil/');" target="_blank" class="dev">DEV_CA PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'APPLI', '/accueil/');" target="_blank" class="homval">RECETTE PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'APPLI', '/accueil/');" target="_blank" class="valid">VALID PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'APPLI', '/accueil/');" target="_blank" class="prod">PROD PC</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Espace Retraite Supplémentaire Entreprise</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'APPLI', '/areadev/');" target="_blank" class="dev">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'APPLI', '/area/');" target="_blank" class="dev">DEV_CA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'APPLI', '/area/');" target="_blank" class="homval">RECETTE</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'APPLI', '/area/');" target="_blank" class="valid">VALID AREA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'APPLI', '/area');" target="_blank" class="prod">PROD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Check Extranet Retraite Supplémentaire Entreprise</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'CONSOLE', '/area/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_TU check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'CONSOLE', '/area/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_CA check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'CONSOLE', '/area/metis/admin/supervision-light.jsp');" target="_blank" class="homval">RECETTE check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'CHECK', '/area/metis/admin/supervision-light.jsp');" target="_blank" class="valid">VALID check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'CHECK', '/area/metis/admin/supervision-light.jsp');" target="_blank" class="prod">PROD check</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Logs Entreprise Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci067/AppSrv01/hfz101dev-are/logs/?C=M;O=D" class="dev" target="_blank">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci065/AppSrv01/caz101dev-are/logs/?C=M;O=D" class="dev" target="_blank">DEV_CA Log</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://lpcci080.unix.lan/log-was-lrcci105/AppSrv01/ckz101rec-are/logs/?C=M;O=D" class="homval" target="_blank">HOMO Log</a>
+												<a href="http://portail-was/jawass/index.php/logs-traces/websphere-8-5-logs-traces" class="homval" target="_blank">RECETTE TBD</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://lpcci080.unix.lan/log/lqc1d135/WebSphere/AppSrv01/RTXNTdyn85arecl1_lqc1d135Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log1</a>
+												<a href="http://lpcci080.unix.lan/log/lqc2d136/WebSphere/AppSrv01/RTXNTdyn85arecl1_lqc2d136Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log 2</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+										 		<!-- PROD -->
+										 		<a href="http://lpcci080.unix.lan/log/lpc1d222/WebSphere/AppSrv01/PXNTdyn85arecl1_lpc1d222Node01/logs/?C=M;O=D" class="prod" target="_blank">PROD log 1</a>
+												<a href="http://lpcci080.unix.lan/log/lpc2d223/WebSphere/AppSrv01/PXNTdyn85arecl1_lpc2d223Node01/logs/?C=M;O=D" class="prod" target="_blank">PROD log 2</a>
+											</td>
+										</tr>
+									</tbody>
+									<tr class="grouperubrique" onClick="open_close_groupe('grpConsole')">
+										<td colspan="6">CONSOLE</td>
+									</tr>
+									<tbody id = 'grpConsole'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Console Espace Client (Parcours client)</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://claapc.ddev/claa_pc/" class="dev" target="_blank">DEV_TU CLAA_PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://claapc.ddev/claa_pc/" class="dev" target="_blank">DEV_CA CLAA_PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://claapc.dqua/claa_pc/" class="homval" target="_blank">RECETTE CLAA_PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://claapc.dqua/claa_pc/"  class="valid" target="_blank">VALID CLAA_PC</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://claapc.dprd/claa_pc/" class="prod" target="_blank">PROD CLAA_PC</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Console Extranet Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'CONSOLE', '/claa_ere/');" target="_blank" class="dev">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'CONSOLE', '/claa_ere/');" target="_blank" class="dev">DEV_CA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'CONSOLE', '/claa_ere/');" target="_blank" class="homval">RECETTE</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'CONSOLE', '/claa_ere/');" target="_blank" class="valid">VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'CONSOLE', '/claa_ere/');" target="_blank" class="prod">PROD CLAA_ERE</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Check Console Extranet Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a onmouseover="setHref(this, 'DEV_TU', 'CONSOLE', '/claa_ere/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_TU check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a onmouseover="setHref(this, 'DEV_CA', 'CONSOLE', '/claa_ere/metis/admin/supervision-light.jsp');" target="_blank" class="dev">DEV_CA check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a onmouseover="setHref(this, 'HOMO', 'CONSOLE', '/claa_ere/metis/admin/supervision-light.jsp');" target="_blank" class="homval">RECETTE check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a onmouseover="setHref(this, 'VALID', 'CONSOLE', '/claa_ere/metis/admin/supervision-light.jsp');" target="_blank" class="valid">VALID check</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a onmouseover="setHref(this, 'PROD', 'CONSOLE', '/claa_ere/metis/admin/supervision-light.jsp');" target="_blank" class="prod">PROD check</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Logs Console Retraite Supplémentaire</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci067/AppSrv01/hfz101dev-cla/logs/?C=M;O=D" class="dev" target="_blank">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://lpcci080.unix.lan/log-was-ldcci065/AppSrv01/caz101dev-cla/logs/?C=M;O=D" class="dev" target="_blank">DEV_CA Log</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://lpcci080.unix.lan/log-was-lrcci105/AppSrv01/?C=M;O=D" class="homval" target="_blank">Tous les logs</a>
+												<a href="http://portail-was/jawass/index.php/logs-traces/websphere-8-5-logs-traces" class="homval" target="_blank">RECETTE TBD</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://lpcci080.unix.lan/log-was-lqc1i138/AppSrv01/RTdyn85clacl1_lqc1i138Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log1</a>
+												<a href="http://lpcci080.unix.lan/log-was-lqc1i139/AppSrv01/RTdyn85clacl1_lqc1i139Node01/logs/?C=M;O=D"  class="valid" target="_blank">VALID Log 2</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://lpcci080.unix.lan/log/lpcci096/WebSphere/AppSrv01/dyn85clacl1_lpcci096Node01/logs/?C=M;O=D" class="prod" target="_blank">PROD Log1</a>
+												<a href="http://lpcci080.unix.lan/log/lpcci097/WebSphere/AppSrv01/dyn85clacl1_lpcci097Node01/logs/?C=M;O=D" class="prod" target="_blank">PROD Log2</a>
+											</td>
+										</tr>
+									</tbody>
+									<tr class="grouperubrique" onClick="open_close_groupe('grpAutre')">
+										<td colspan="6">AUTRE</td>
+									</tr>
+									<tbody id = 'grpAutre'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Inscription (MOA)</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://inscription-dev/inscriptions/" class="dev" target="_blank">DEV_TU</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://inscription-dev/inscriptions/" class="dev" target="_blank">DEV_CA</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://inscription-dev/inscriptions/" class="homval" target="_blank">RECETTE TBD</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://inscriptions.ppalm.fr/inscriptions/"  class="valid" target="_blank">VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="hhttp://inscriptions.ppalm.fr/inscriptions/" class="prod" target="_blank">PROD TBD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Admin. GDI</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="2">
+												<!-- DEV_TU -->
+												<!-- DEV_CA -->
+												<a href="http://dev-gdibackoffice/ihmgdibackoffice/" class="dev" target="_blank">DEV</a>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://wasr85j7/ihmgdibackoffice/" class="homval" target="_blank">RECETTE</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://wasmtr85j7/ihmgdibackoffice/"  class="valid" target="_blank">VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://wasmtr85j7/ihmgdibackoffice/" class="prod" target="_blank">PROD TBD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Accès divers (eGesper, ...)</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="3">
+												<!-- DEV_TU -->
+												<a href="http://intarial/"  class="homval" target="_blank">IntArial(MPTV/MPTV)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli" target="_blank">
+												<!-- VALID -->
+												<a href="http://valarial/"  class="valid" target="_blank">ValArial (MPTV/MPTV)</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Workflow ERE</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="3">
+												<!-- DEV_TU -->
+												<a href="http://ere-wkf-int:8200/WDE" class="dev" target="_blank">GPS ERE intégration</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://avu21-wkf-wde/WDE/"  class="valid" target="_blank">GPS ERE VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://avu21-wkf-wde/WDE/" class="prod">PROD TBD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Workflow MDPRO</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="3">
+												<!-- DEV_TU -->
+												<a href="http://liu21-wkf-wde/WDE" class="dev" target="_blank">GPS MDPRO intégration</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://avu21-wkf-wde/WDE/" target="_blank" class="valid">GPS MDPRO VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://avu21-wkf-wde/WDE/" target="_blank" class="prod">PROD TBD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">PTV (Référentiel contrats - Back ERE)</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="2">
+												<!-- DEV_TU -->
+												<!-- DEV_CA -->
+												<a href="http://aiu11/concollcotdef/loginpf?query=ok&ecParams=appEditique=PTV&j_username=MPTV&j_password=MPTV" target="_blank" class="dev">PTV intégration</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://aiu11/concollcotdef/loginpf?query=ok&ecParams=appEditique=PTV&j_username=MPTV&j_password=MPTV" target="_blank" class="homval">RECETTE TBD</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://avu11/concollcotdef/controller/?user=MPTV&pwd=MPTV" target="_blank" class="valid">PTV VALID</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://avu11/concollcotdef/controller/?user=MPTV&pwd=MPTV" target="_blank" class="prod">PROD TBD</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Jahia</span></td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_TU -->
+												<a href="http://cdr-dev-jahia7:8080/cms/login" class="dev" target="_blank">Jahia 7</a> (root/admsup)
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- DEV_CA -->
+												<a href="http://cdr-dev-jahia7:8080/cms/login" class="dev" target="_blank">Jahia 7</a> (root/admsup)
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://cdr-rec-jahia7:8080/cms/login" class="homval" target="_blank">RECETTE</a> (Igor/Q2gv4Vr7)
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://cdr-jahia7.ppalm.fr/cms/login" class="valid" target="_blank">VALID</a> (Igor/4zd2LW6x)
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="https://contrib-espace-client.ag2rlamondiale.fr/cms/login" class="prod" target="_blank">PROD</a> (Igor/3a8B4ykW)
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Supervision OFL (PFS)</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="2">
+												<!-- DEV-->
+												<a href="http://monitor-console-ciu41/OF" class="dev" target="_blank">INTEG : compte CORP</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- HOMO -->
+												<a href="http://monitor-console-cvu41:11580/OF/" class="homval" target="_blank">VALID : compte CORP</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- VALID -->
+												<a href="http://monitor-console-cvu41:11580/OF/"  class="valid" target="_blank">VALID : compte CORP</a>
+											</td>
+											<td width=11% align=center class="celluleAppli">
+												<!-- PROD -->
+												<a href="http://monitor-console-ceu41/OF" class="prod" target="_blank">PROD : compte CORP<a>
+											</td>
+										</tr>
+									</tbody>
+									<tr class="grouperubrique" onClick="open_close_groupe('grpDev')">
+										<td colspan="6">DEV</td>
+									</tr>
+									<tbody id = 'grpDev'>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Jira</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV-->
+												<a href="https://ag2rlamondiale-itfactory.atlassian.net/secure/RapidBoard.jspa" class="dev" target="_blank">Jira</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">ClearQuest</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV-->
+												<a href="http://wpmmi126.ressources.racine.local/cqweb/" class="dev" target="_blank">ClearQuest</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">GitLab</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="https://git-prd.server.lan/" class="dev" target="_blank">GitLab</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Documentation Web-services (wssami)</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="http://wssami/NewPFS/A  Documents de reference/Forms/AllItems.aspx" target="_blank" class="dev">Documentation Web-services (wssami)</a>
+												<a href="http://portail-doc-pfs/" target="_blank" class="valid">Documentation services PFS</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Hawaii</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="http://hawaii/hawaii/" target="_blank" class="dev">Hawaii</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Jenkins</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="http://ice/job/R0478_ESPACE_RETRAITE/" target="_blank" class="dev">Jenkins</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Jenkins RSB/RSF (DOCKER DEPLOY)</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="http://dockerdeploy:8080/job/a1573/" target="_blank" class="dev">Jenkins RSB/RSF (ID Windows)</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Infra Docker</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="http://idocker.dprd/index.php?menu=1_technique&appli=2_HorsProduction" target="_blank" class="dev">Infra Docker (documentation sur l'infra)</a>
+											</td>
+										</tr>
+										<tr>
+											<td class="celluleAppli"><span class="sousrubrique">Documentation process integration continue avec Docker</span></td>
+											<td width=11% align=center class="celluleAppli" colspan="5">
+												<!-- DEV_TU -->
+												<a href="https://git-prd.server.lan/Docker/docs/blob/master/DockerEtIntegContinue.md" target="_blank" class="dev">Integration continue & Docker</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+
+			</tr>
+		</table>
+	</body>
+</html>

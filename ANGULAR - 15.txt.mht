@@ -1,0 +1,213 @@
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html data-page="15"
+        data-canvas="1"
+        data-site="/sites/RetraiteSuppDev"
+        data-list="19:9afd05051b614ae7be25fb307bca7438@thread.skype_wiki"
+        data-tabId="tab::3dcf1985-69fa-4ec8-949b-af608e5321ac"
+        data-slug="Général"
+        data-threadId="19:9afd05051b614ae7be25fb307bca7438@thread.skype"<body><h3 class="wiki-mht-note">Cette page est automatiquement mise à jour à partir du Wiki dans Microsoft Teams. Toute modification apportée ici sera écrasée. Pour modifier cette page, ouvrez-la dans Microsoft Teams.</h3>
+<h1 id="wiki-mht-page-title-15">ANGULAR</h1>
+<h3 id="wiki-mht-section-title-16">Bonnes pratiques</h3>
+<p id="wiki-mht-section-content-16"><h2>Single Responsabiliy Principe</h2>
+
+<div>Un composant prend une seule responsabilité : </div>
+
+<ul itemprop="copy-paste-block">
+	<li>Code simplifié,</li>
+	<li>+ lisible et pas de spaghetti (*ngIf, ...)</li>
+	<li>Plus simple à tester</li>
+	<li>
+	<div>Exemple :</div>
+
+	<ul>
+		<li>
+		<div>&lt;evenement-base&gt; a la responsabilité d'afficher tous les Types d'EVEN sauf CGU</div>
+		</li>
+		<li>
+		<div>&lt;evenement-cgu&gt; a la responsabilité d'afficher les EVEN de Type CGU : traitement supplémentaire pour aller chercher le détail des CGU à afficher.</div>
+		</li>
+		<li>
+		<div>&lt;evenement&gt; : composant de type Container qui a pour responsabilité d'aller chercher l'EVEN suivant et de déléguer l'affichage du composant à &lt;evenement-base&gt; ou &lt;evenement-cgu&gt; selon le TYPE de l'even</div>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+<div> </div>
+
+<h2>Minimiser les appels HTTP</h2>
+
+<div>Eviter les appels HTTP inutiles :</div>
+
+<ul>
+	<li>Simplifier le Code</li>
+	<li>Améliorer l'expérience utilisateur (moins de redirection)</li>
+	<li>Améliorer les performances de fait</li>
+</ul>
+
+<div> </div>
+
+<h2>Code métier : dans le BACK</h2>
+
+<div>Autant que possible déporter toute la logique métier vers le Back.</div>
+
+<div> </div>
+
+<div>A faire pour la nouvelle application :</div>
+
+<ul>
+	<li><u>Gérer l'accès à une fonctionnalité depuis le BACK</u> plutôt que de faire ce qui est fait en GWT où c'est le Front qui a la logique de recherche des &quot;blocages fonctionnels&quot; (en opposition aux &quot;blocages consoles&quot;) pour vérifier s'il y a des demandes Workflow en cours, ou si le contrat ne permet pas d'accéder à la fonctionnalité, par exemple.</li>
+	<li>Faire une API ayant la signature suivante (<em>proposition</em>) :
+	<ul>
+		<li>NOM : /api/secure/accessibilite/?idFonc=ID_FONC</li>
+		<li>ENTREE : l'ID de la fonctionnalité </li>
+		<li>SORTIE : {​​​​​​[ID_FONC] : {​​​​​​accessible: boolean, raison : {​​​​​​code, libelle}​​​​​​<span>}​​​​​​</span></li>
+	</ul>
+	</li>
+	<li>Si on ne passe aucun ID_FONC alors l'API retourne le résultat pour toutes les Fonctionnailités</li>
+</ul>
+
+<div>Avec une telle API il sera beaucoup plus simple/directe de rechercher des JDD : puisqu'il suffira d'appeler cette API au lieu d'exécuter le Selenium (parce que l'information était porté par le Front).</div>
+
+<div> </div>
+</p>
+<h3 id="wiki-mht-section-title-128">RXJS - switchMap, mergeMap, concatMap, ...</h3>
+<p id="wiki-mht-section-content-128"><div itemprop="copy-paste-block">
+<div><a href="https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/" rel="noreferrer noopener" target="_blank" title="https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/">https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/</a></div>
+
+<h4>Use appropriate operators</h4>
+
+<p>When using flattening operators with your observables, use the appropriate operator for the situation.</p>
+
+<p><em>switchMap:</em> when you want to ignore the previous emissions when there is a new emission</p>
+
+<p><em>mergeMap:</em> when you want to concurrently handle all the emissions</p>
+
+<p><em>concatMap:</em> when you want to handle the emissions one after the other as they are emitted</p>
+
+<p><em>exhaustMap: </em>when you want to cancel all the new emissions while processing a previous emisssion</p>
+
+<p>For a more detailed explanation on this, please refer to <a href="https://blog.angularindepth.com/switchmap-bugs-b6de69155524" rel="noreferrer noopener" target="_blank" title="https://blog.angularindepth.com/switchmap-bugs-b6de69155524">this</a> article by <a href="https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/undefined" rel="noreferrer noopener" target="_blank" title="https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/undefined">Nicholas Jamieson</a>.</p>
+
+<p><strong>Why?</strong></p>
+
+<p>Using a single operator when possible instead of chaining together multiple other operators to achieve the same effect can cause less code to be shipped to the user. Using the wrong operators can lead to unwanted behaviour, as different operators handle observables in different ways.</p>
+</div>
+</p>
+<h3 id="wiki-mht-section-title-63">Pictogrammes AG2R</h3>
+<p id="wiki-mht-section-content-63"><div itemprop="copy-paste-block">
+<div><span contenteditable="false"></span>
+<div>Pour utiliser un pictogramme AG2R, utiliser la police d'icones avec les classes CSS indiquées dans le fichier suivant :</div>
+
+<div> </div>
+
+<div><span style="box-shadow:inset 0 0 0 1000px rgba(0,0,0,.2);">\\rc0007\AG2RLM\Projets\Programme internet 2012\4- SERVICES INTERNET\1347 - Refonte Extranet ERE\05 - Front\Maquettes + Chartes\Picto\font-icon ag2r-charte-2018\icons-reference.html</span></div>
+
+<div> </div>
+
+<div>Vous pourrez ensuite changer la taille et la couleur de votre icone avec les propriétés css <strong>font-size</strong> et <strong>color</strong></div>
+
+<div> </div>
+
+<div>Comment ajouter une nouvelle icone : \\rc0007\AG2RLM\Projets\Programme internet 2012\4- SERVICES INTERNET\1347 - Refonte Extranet ERE\05 - Front\Maquettes + Chartes\Picto\font-icon ag2r-charte-2018\How-to_Police_d'icones.docx</div>
+
+<div> </div>
+
+<div>Lien vers le tuto utilisé : <a href="https://www.templatemonster.com/blog/how-to-create-icon-fonts-guide/" rel="noreferrer noopener" target="_blank" title="https://www.templatemonster.com/blog/how-to-create-icon-fonts-guide/">https://www.templatemonster.com/blog/how-to-create-icon-fonts-guide/</a> </div>
+</div>
+
+<div> </div>
+</div>
+</p>
+<h3 id="wiki-mht-section-title-68">DEBUG</h3>
+<p id="wiki-mht-section-content-68"><div itemprop="copy-paste-block"><span contenteditable="false"></span>
+<div><a href="https://medium.com/angular-in-depth/read-your-production-angular-errors-like-a-pro-32c3df34bdae" rel="noreferrer noopener" target="_blank" title="https://medium.com/angular-in-depth/read-your-production-angular-errors-like-a-pro-32c3df34bdae">https://medium.com/angular-in-depth/read-your-production-angular-errors-like-a-pro-32c3df34bdae</a></div>
+
+<div> </div>
+
+<div>Résoudre les Erreurs Front avec <strong>source-map</strong></div>
+
+<div>
+<div><span contenteditable="false"><img alt data-preview-src="/sites/RetraiteSuppDev/Teams Wiki Data/General/img-68-039f5a983d8d41b3a8f4e49ec16a29be.png" src="https://ag2rlm.sharepoint.com/sites/RetraiteSuppDev/_api/web/getfilebyid(%272fc3c9db-aeee-4e40-934b-0e082f137e73%27)/$value" data-ts-imgid="img90d68b56-cfb7-4246-a931-57d37f432b6c" data-ts-imglen="377998" height="473" itemtype="http://teams.microsoft.com/WikiImage" style="vertical-align:bottom;" width="255" /></span>
+
+<div> </div>
+</div>
+
+<div> </div>
+</div>
+
+<div><span class="ts-element-selection" contenteditable="false"></span></div>
+</div>
+
+<div> </div>
+</p>
+<h3 id="wiki-mht-section-title-77">Utilisation d&#39;un package npm en local</h3>
+<p id="wiki-mht-section-content-77"><div>Si jamais vous voulez tester des changements sur le projet jahia-ng avant de les déployer sur le repo nexus, suivez les étapes suivantes :</div>
+
+<ol itemprop="copy-paste-block">
+	<li>Avec le terminal de VSCode se placer à la racine du projet</li>
+	<li>Supprimer le dossier dist s'il existe</li>
+	<li>Lancer la commande npm run build_lib</li>
+	<li>Lancer la commande npm run pack_lid
+	<ol>
+		<li>Un fichier ag2rlamondiale-jahia-ng-&lt;version&gt;.tgz sera crée dans le dossier dist/jahia-ng</li>
+	</ol>
+	</li>
+	<li>Déplacer cette archive à la racine du projet utilisant la librairie</li>
+	<li>Modifier le package.json de ce projet pour utiliser ce package local en remplaçant la version de jahia-ng par <strong>file:ag2rlamondiale-jahia-ng-&lt;version&gt;.tgz </strong></li>
+	<li>Lancer npm install pour installer votre package local</li>
+	<li>Puis lancer votre application avec npm start</li>
+</ol>
+</p>
+<h3 id="wiki-mht-section-title-78">Creating a Blob from a base64 string in JavaScript</h3>
+<p id="wiki-mht-section-content-78"><div class="copy-paste-block" itemprop="copy-paste-block"><a href="https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript" title="https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript" target="_blank" rel="noreferrer noopener">https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript</a></div>
+</p>
+<h3 id="wiki-mht-section-title-94">CHARTE et éléments graphiques</h3>
+<p id="wiki-mht-section-content-94"><div class="copy-paste-block" itemprop="copy-paste-block">
+<div style="font-size:14px;">
+<div>
+<div>
+<div>
+<div>
+<div>C'est sur ce fichier Figma qu'il y a les boutons : <a href="https://www.figma.com/file/XD5LWsJSMhfsl3EwSip9SQAk/Origami-99-Archive-Molecules?node-id=4%3A0" rel="noreferrer noopener" target="_blank" title="https://www.figma.com/file/xd5lwsjsmhfsl3ewsip9sqak/origami-99-archive-molecules?node-id=4%3a0">https://www.figma.com/file/XD5LWsJSMhfsl3EwSip9SQAk/Origami-99-Archive-Molecules?node-id=4%3A0</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div> </div>
+
+<div style="font-size:14px;">
+<div>
+<div>
+<div>Il est marqué comme Archivé car ils sont en train de refaire des trucs propres sur leurs sources</div>
+</div>
+</div>
+</div>
+
+<div>​</div>
+
+<div style="font-size:14px;">
+<div>
+<div>
+<div>il y a quelques trucs pétés (des boutons rouges....) mais l'essentiel est la</div>
+</div>
+</div>
+</div>
+
+<div>​</div>
+
+<div style="font-size:14px;">
+<div>
+<div>
+<div>Ces éléments sont bien issus d'une réflexion à partir du document de charte de 2018... enrichis de cas nécessaires pour les parcours sur les espaces client</div>
+</div>
+</div>
+</div>
+</div>
+</p>
+</body></html>

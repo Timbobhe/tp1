@@ -1,0 +1,179 @@
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html data-page="185"
+        data-canvas="1"
+        data-site="/sites/RetraiteSuppDev"
+        data-list="19:9afd05051b614ae7be25fb307bca7438@thread.skype_wiki"
+        data-tabId="tab::3dcf1985-69fa-4ec8-949b-af608e5321ac"
+        data-slug="19:9afd05051b614ae7be25fb307bca7438@thread.skype"
+        data-threadId="19:9afd05051b614ae7be25fb307bca7438@thread.skype"<body><h3 class="wiki-mht-note">Cette page est automatiquement mise à jour à partir du Wiki dans Microsoft Teams. Toute modification apportée ici sera écrasée. Pour modifier cette page, ouvrez-la dans Microsoft Teams.</h3>
+<h1 id="wiki-mht-page-title-185">Revue de code et pré-requis merge (Brouillon)</h1>
+<h3 id="wiki-mht-section-title-194">Liens vers PACIFIC</h3>
+<p id="wiki-mht-section-content-194"><div><a href="https://master-0.pacific.appli/" rel="noreferrer noopener" target="_blank" title="https://master-0.pacific.appli/">https://master-0.pacific.appli/</a></div>
+</p>
+<h3 id="wiki-mht-section-title-239">Lien vers la vidéo de présentation</h3>
+<p id="wiki-mht-section-content-239"><div><a href="https://ag2rlm.sharepoint.com/:v:/s/RetraiteSuppDev/Edk0ldnG4vJHmHgoPYqXN4UB0TuRMW3Lkuh-sQLOQ2z1_w?e=RYHxnr" rel="noreferrer noopener" target="_blank" title="https://ag2rlm.sharepoint.com/:v:/s/retraitesuppdev/edk0ldng4vjhmhgopyqxn4ub0turmw3lkuh-sqloq2z1_w?e=ryhxnr">https://ag2rlm.sharepoint.com/:v:/s/RetraiteSuppDev/Edk0ldnG4vJHmHgoPYqXN4UB0TuRMW3Lkuh-sQLOQ2z1_w?e=RYHxnr</a></div>
+</p>
+<h3 id="wiki-mht-section-title-238">Simplification !</h3>
+<p id="wiki-mht-section-content-238"><div>
+<div>1. Modifier le &quot;sens&quot; de la structure des données - triturer le modèle <br />
+    (filtrer les liste, regrouper les éléments, des attributs intermédiaires, etc.)<br />
+    =&gt; Re-modélisation</div>
+
+<div>
+<div> </div>
+
+<div>
+<div>2. Mélanger des problématiques &quot;Vue&quot; avec &quot;Controller&quot; <br />
+    (affecter les Jahia dico)<br />
+    =&gt; Déplacer la Vue dans la Vue<br />
+    =&gt; Pipe </div>
+
+<div>
+<div> </div>
+
+<div>
+<div>3. Complexité avec les structures de données indexés très dépendantes de l'ordre <br />
+    (more[i])<br />
+    =&gt; Nouvel API exécution qui retourne un Observable froid (COLD)</div>
+
+<div>
+<div> </div>
+
+<div>
+<div><br />
+ </div>
+
+<div> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</p>
+<h3 id="wiki-mht-section-title-186">Ecrs-back</h3>
+<p id="wiki-mht-section-content-186"><div>Ci dessous la liste des éléments à vérifier lors d'une revue de code d'une branche <strong>feature/XXXXXX</strong></div>
+
+<div> </div>
+
+<ul itemprop="copy-paste-block">
+	<li>Vérifier sur Gitlab que la branche <strong>feature/XXXXXX </strong>n'a pas trop de retard par rapport à la branche release cible
+
+	<ul>
+		<li>Aller sur <a href="https://git-prd.server.lan/A1573/ecrs-back/-/branches" rel="noreferrer noopener" target="_blank" title="https://git-prd.server.lan/a1573/ecrs-back/-/branches">https://git-prd.server.lan/A1573/ecrs-back/-/branches</a> 
+
+		<div><span contenteditable="false"><img alt data-preview-src="/sites/RetraiteSuppDev/Teams Wiki Data/General/img-186-0eb9f711489d45acafec35472b4de6b4.png" src="https://ag2rlm.sharepoint.com/sites/RetraiteSuppDev/_api/web/getfilebyid(%27e2f3eef3-5723-4d4c-b715-2ea1bb96e708%27)/$value" data-ts-imgid="imgfafc374b-b0af-4f3a-a9ab-809bb80a80ad" data-ts-imglen="517" height="43" itemtype="http://teams.microsoft.com/WikiImage" style="vertical-align:bottom;" width="78" /></span>
+
+		<div> </div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Sur l'image ci-dessus, le nombre a gauche indique les commits de retard par rapport à la branche par défaut (un nombre trop élevé indique que la branche a beaucoup trop de retard)</div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Il faut donc d'abord mettre la branche a jour par rapport a la branche cible (0 commit de retard) et s'assurer que le PVA est toujours ok (si jamais la résolution des conflits de merge a entrainé une régression)</div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Si tout est OK, push la nouvelle branche a jour sur Gitlab </div>
+		</div>
+		</li>
+	</ul>
+	</li>
+	<li>
+	<div>
+	<div>S'assurer que les TU passent dans la branche en local (clic droit sur ecrs-api -&gt; Run All Tests)</div>
+	</div>
+	</li>
+	<li>
+	<div>
+	<div>S'assurer que les TU passent dans la branche sur le pipeline Jenkins</div>
+	</div>
+	</li>
+	<li>
+	<div>
+	<div>Vérifier que le Quality Gate Sonar passe sur la branche</div>
+	</div>
+	</li>
+	<li>Relancer le pipeline Jenkins sur la branche pour s'assurer que le pipeline Jenkins passe sur la branche en question
+	<ul>
+		<li>(Exception si erreur a l'étape build car la branche utilise du code de trm-back qui n'a pas encore été déployé sur Nexus, dans ce cas la il faudra vérifier que le build passe bien une fois la nouvelle version de trm-back sera déployée) </li>
+	</ul>
+	</li>
+	<li>Si des TU ont été commentés, supprimés ou désactivés, la branche ne doit pas être mergée dans l'état. La seule raison acceptable pour que des tests soient supprimés est que le code testé a été supprimé.</li>
+</ul>
+
+<div> </div>
+</p>
+<h3 id="wiki-mht-section-title-189">Ecrs-front</h3>
+<p id="wiki-mht-section-content-189"><div itemprop="copy-paste-block">
+<div style="font-size:14px;">Ci dessous la liste des éléments à vérifier lors d'une revue de code d'une branche <span><strong>feature/XXXXXX</strong></span></div>
+
+<div style="font-size:14px;"> </div>
+
+<ul itemprop="copy-paste-block" style="font-size:14px;">
+	<li>Vérifier sur Gitlab que la branche <span><strong>feature/XXXXXX </strong></span>n'a pas trop de retard par rapport à la branche release cible
+
+	<ul>
+		<li>Aller sur <a href="https://git-prd.server.lan/A1573/ecrs-front/-/branches" rel="noreferrer noopener" target="_blank" title="https://git-prd.server.lan/a1573/ecrs-front/-/branches">https://git-prd.server.lan/A1573/ecrs-front/-/branches</a> 
+
+		<div><span><img alt height="43" itemtype="http://teams.microsoft.com/WikiImage" src="blob:https://teams.microsoft.com/224da63d-ddd1-4342-b40b-4b98d9cc45a6" width="78" /></span>
+
+		<div> </div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Sur l'image ci-dessus, le nombre a gauche indique les commits de retard par rapport à la branche par défaut (un nombre trop élevé indique que la branche a beaucoup trop de retard)</div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Il faut donc d'abord mettre la branche a jour par rapport a la branche cible (0 commit de retard) et s'assurer que le PVA est toujours ok (si jamais la résolution des conflits de merge a entrainé une régression)</div>
+		</div>
+		</li>
+		<li>
+		<div>
+		<div>Si tout est OK, push la nouvelle branche a jour sur Gitlab</div>
+		</div>
+		</li>
+	</ul>
+	</li>
+	<li>
+	<div>
+	<div>S'assurer que les TU passent dans la branche en local (npm run test)</div>
+	</div>
+	</li>
+	<li>
+	<div>
+	<div>S'assurer que les TU passent dans la branche sur le pipeline Jenkins</div>
+	</div>
+	</li>
+	<li>
+	<div>
+	<div>S'assurer que dans le nouveau code ajouté, si un .<strong>subscribe </strong>est fait, il faudra obligatoirement un <strong>.unsubscribe</strong> dans le composant</div>
+	</div>
+	</li>
+	<li>
+	<div>
+	<div>Vérifier que le Quality Gate Sonar passe sur la branche</div>
+	</div>
+	</li>
+	<li>Relancer un build Jenkins sur la branche pour s'assurer que le pipeline Jenkins passe sur la branche en question
+	<ul>
+		<li>(Exception si erreur a l'etape install si la branche utilise du code de trm-front qui n'a pas encore été déployé sur Nexus, dans ce cas la il faudra vérifier que le build passe bien une fois la nouvelle version de trm-front sera déployée) </li>
+	</ul>
+	</li>
+	<li>Si des TU ont été commentés, supprimés ou désactivés, la branche ne doit pas être mergée dans l'état. La seule raison acceptable pour que des tests soient supprimés est que le code testé a été supprimé.</li>
+</ul>
+</div>
+</p>
+</body></html>

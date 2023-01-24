@@ -1,0 +1,49 @@
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html data-page="8"
+        data-canvas="1"
+        data-site="/sites/RetraiteSuppDev"
+        data-list="19:9afd05051b614ae7be25fb307bca7438@thread.skype_wiki"
+        data-tabId="tab::3dcf1985-69fa-4ec8-949b-af608e5321ac"
+        data-slug="Général"
+        data-threadId="19:9afd05051b614ae7be25fb307bca7438@thread.skype"<body><h3 class="wiki-mht-note">Cette page est automatiquement mise à jour à partir du Wiki dans Microsoft Teams. Toute modification apportée ici sera écrasée. Pour modifier cette page, ouvrez-la dans Microsoft Teams.</h3>
+<h1 id="wiki-mht-page-title-8">Typescript/Javascript</h1>
+<h3 id="wiki-mht-section-title-9">Définition de type &quot;objet&quot; précis</h3>
+<p id="wiki-mht-section-content-9"><div itemprop="copy-paste-block">
+<div style="font-size:11px;">
+<pre>
+<span>export</span><span> </span><span>interface</span><span> </span><span>Dictionnaires</span><span> {​​​</span><span> 
+ [</span><span>key</span><span>:</span><span> </span><span>string</span><span>]</span><span>:</span><span> </span><span>JahiaDictionnaire</span><span>;</span><span>
+}​​​
+
+
+</span></pre>
+
+<div> </div>
+</div>
+</div>
+</p>
+<h3 id="wiki-mht-section-title-123">Proxy - intercept method call</h3>
+<p id="wiki-mht-section-content-123"><div itemprop="copy-paste-block">
+<pre>
+<span>return new </span><span>Proxy</span>&lt;<span>TestBedStatic</span>&gt;(<span>testBedStatic</span>, {​​​
+  <span>get</span>: <span>function </span>(target, propKey, receiver) {​​​
+    <em><span>//I only want to intercept method calls, not property access
+</span></em><em><span>    </span></em><span>const </span><span>propValue </span>= target[propKey];
+    
+    
+    <span>if </span>(<span>typeof </span><span>propValue </span>!= <span>'function'</span>) {​​​
+      <span>return </span><span>propValue</span>;
+    }​​​ <span>else </span>{​​​
+      <span>return function </span>() {​​​
+        <em><span>//&quot;this&quot; points to the proxy, is like using the &quot;receiver&quot; that the proxy has captured
+</span></em><em><span>        </span></em><span>return </span><span>propValue</span>.<span>apply</span>(<span>this</span>, arguments);
+      }​​​;
+    }​​​
+  }​​​
+}​​​);</pre>
+</div>
+</p>
+</body></html>
